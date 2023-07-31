@@ -1,4 +1,4 @@
-# algorithms
+# karatsuba
 1234 * 45678
 
 a(12)(34)b * c(45)(68)c 
