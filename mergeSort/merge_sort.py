@@ -4,7 +4,7 @@ import time
 
 def merge_sort(input):
     n = len(input)
-    if(n == 1):
+    if n == 1:
         return input
     halve = int(len(input)/2)
     # divide the arrays into two parts
@@ -22,19 +22,19 @@ def merge_sort(input):
         sorted = arr.array('i', [])
         for k in range(n):
             # todo fix this part
-            if(j == 1 and len(D) == 2):
+            if j == 1 and len(D) == 2:
                 sorted = merge_sort(D) + C
                 break
-            if(i == 1 and len(C) == 2):
+            if i == 1 and len(C) == 2:
                 sorted = merge_sort(C) + D
                 break
-            if(j == half_len):
+            if j == half_len:
                 sorted = sorted + C
                 break
-            elif(i == half_len):
+            if i == half_len:
                 sorted = sorted + D
                 break
-            elif(C[i] > D[j]):
+            elif C[i] > D[j]:
                 # print("C[i]: {}, D[j]: {}".format(C[i], D[j]))
                 sorted.append(D[j])
                 j += 1
@@ -48,9 +48,9 @@ def merge_sort(input):
 n = 1
 t = []
 size = []
-times = 1000
-step = 100
-while(n < times):
+times = 50
+step = 1000
+while n < times:
     input = arr.array('i', [])
     for i in range(n*step):
         input.append(n*step - i)
