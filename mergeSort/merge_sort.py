@@ -2,6 +2,28 @@ import array as arr
 import matplotlib.pyplot as plt
 import time
 
+
+def merge(left, right):
+    i=0
+    j=0
+    # size of right and left
+    n = int(len(left) + len(right))
+    sorted = arr.array('i', [])
+    for k in range(n):
+        if j == len(right):
+            sorted = sorted + left
+            break
+        if i == len(left):
+            sorted = sorted + right
+            break
+        if left[i] > right[j]:
+            sorted.append(right[j])
+            j += 1
+        else:
+            sorted.append(left[i])
+            i += 1
+    return sorted
+
 def merge_sort(input):
     n = len(input)
     if n == 1:
@@ -11,44 +33,15 @@ def merge_sort(input):
     left = input[:halve]
     right = input[halve:]
     # sort each part 
-    C = merge_sort(left)
-    D = merge_sort(right)
+    left_sorted = merge_sort(left)
+    right_sorted = merge_sort(right)
     # merge sorted arrays into one
-    def merge():
-        i=0
-        j=0
-        nn = int(len(C) + len(D))
-        half_len = int(nn/2) #if n%2 == 0 else int(nn+1/2)
-        sorted = arr.array('i', [])
-        for k in range(n):
-            # todo fix this part
-            if j == 1 and len(D) == 2:
-                sorted = merge_sort(D) + C
-                break
-            if i == 1 and len(C) == 2:
-                sorted = merge_sort(C) + D
-                break
-            if j == half_len:
-                sorted = sorted + C
-                break
-            if i == half_len:
-                sorted = sorted + D
-                break
-            elif C[i] > D[j]:
-                # print("C[i]: {}, D[j]: {}".format(C[i], D[j]))
-                sorted.append(D[j])
-                j += 1
-            else:
-                sorted.append(C[i])
-                i += 1
-        return sorted
-
-    return merge()
+    return merge(left_sorted, right_sorted)
 
 n = 1
 t = []
 size = []
-times = 50
+times = 100
 step = 1000
 while n < times:
     input = arr.array('i', [])
@@ -56,7 +49,6 @@ while n < times:
         input.append(n*step - i)
     start = time.time()
     result = merge_sort(input)
-    # print(result)
     end = time.time()
     t.append(end - start)
     size.append(n*step)
@@ -65,4 +57,9 @@ while n < times:
 plt.xlabel('n')
 plt.ylabel('t = f(n)')
 plt.plot(size, t)
+plt.ylim([0, 1])
+plt.xlim([0, 120000])
 plt.show()
+
+
+# O(log2n)
